@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+require 'putio.rb'
+
+$stdout.sync = true
+
+PutIO::Cli.start(ARGV)
