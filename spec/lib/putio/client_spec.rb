@@ -1,12 +1,18 @@
 require 'spec_helper'
 
 describe PutIO::Client do
+
+  it 'can create a new instance' do
+    described_class.should respond_to(:new)
+  end
   
-  context 'with auth token' do
-    it 'creates a connection' do
-      PutIO::Connection.should_receive(:new).with(oauth_token: "VALID|TOKEN")
-      described_class.new oauth_token: "VALID|TOKEN"
+  context 'creating a new instance' do
+
+    it 'sets the token' do
+      client = described_class.new(oauth_token: "VALID|TOKEN")
+      client.oauth_token.should eql("VALID|TOKEN")
     end
+
   end
 
 end

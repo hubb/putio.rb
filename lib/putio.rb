@@ -1,15 +1,13 @@
 lib = File.expand_path('lib')
 $:.unshift(lib) unless $:.include?(lib)
 
-require 'putio/configuration'
 require 'putio/client'
 require 'cli'
 
 module PutIO
-  # extend Configuration
   
-  def self.new(options = {})
-    PutIO::Client.new(options)
+  def self.new(*args)
+    PutIO::Client.new(args)
   end
 
   def self.method_missing(method, *args, &block)

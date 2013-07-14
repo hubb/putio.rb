@@ -20,7 +20,11 @@ Gem::Specification.new do |s|
   s.executables   = ["putio"]
 
   s.add_dependency 'thor'
+  s.add_dependency 'httparty'
   s.add_development_dependency 'bundler', '~> 1.0'
   s.add_development_dependency 'rspec', '~>2.0'
+  s.add_development_dependency 'webmock'
+  s.add_development_dependency 'pry'
+  s.add_development_dependency 'pry-nav'
 
 end

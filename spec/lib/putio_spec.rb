@@ -1,8 +1,9 @@
 require 'spec_helper'
 
 describe PutIO do
-  it 'creates new client' do
-    PutIO::Client.should_receive(:new).with(oauth_token: "VALIDTOKEN")
-    described_class.new(oauth_token: "VALIDTOKEN")
+
+  it 'offers a shortcut to create a new client' do
+    lambda { described_class.new }.call.should be_a(PutIO::Client)
   end
+  
 end
