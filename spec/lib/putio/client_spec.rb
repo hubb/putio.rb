@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe PutIO::Client do
+describe Putio::Client do
 
   it 'can create a new instance' do
     described_class.should respond_to(:new)
   end
-  
+
   context 'creating a new instance' do
 
     it 'sets the token' do

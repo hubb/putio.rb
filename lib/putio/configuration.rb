@@ -1,7 +1,7 @@
 require 'dotenv'
 Dotenv.load
 
-module PutIO
+module Putio
   module Configuration
     VALID_OPTIONS_KEYS = [
       :client_id,
@@ -12,8 +12,8 @@ module PutIO
     ].freeze
 
     DEFAULT_API_VERSION  = 2
-    DEFAULT_API_ENDPOINT = ENV["PUTIO_API_ENDPOINT"] || "https://api.put.io/v2"
-    DEFAULT_OAUTH_TOKEN  = ENV["PUTIO_OAUTH_TOKEN"]
+    DEFAULT_API_ENDPOINT = ENV["Putio_API_ENDPOINT"] || "https://api.put.io/v2"
+    DEFAULT_OAUTH_TOKEN  = ENV["Putio_OAUTH_TOKEN"]
 
     attr_accessor(*VALID_OPTIONS_KEYS)
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe PutIO::Connection do
+describe Putio::Connection do
 
   context 'without OAuth token' do
     it 'raises an error' do
@@ -23,7 +23,7 @@ describe PutIO::Connection do
       end
 
       it 'has base_uri' do
-        subject.class.base_uri.should eql(PutIO::Configuration::DEFAULT_API_ENDPOINT)
+        subject.class.base_uri.should eql(Putio::Configuration::DEFAULT_API_ENDPOINT)
       end
 
       it 'has right headers' do
@@ -40,7 +40,7 @@ describe PutIO::Connection do
 
       %I(get post put delete).each do |meth|
         it "delegates #{meth} to the class" do
-          PutIO::Connection.should_receive(meth)
+          Putio::Connection.should_receive(meth)
           subject.send(meth)
         end
       end

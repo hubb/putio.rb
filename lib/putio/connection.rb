@@ -1,8 +1,8 @@
 require 'httparty'
 require 'forwardable'
-require 'putio/configuration'
+require 'Putio/configuration'
 
-module PutIO
+module Putio
   class Connection
 
     class MissingOauthToken < ArgumentError
@@ -23,6 +23,6 @@ module PutIO
       raise MissingOauthToken.new if token.nil?
       self.class.default_params.merge!(oauth_token: token)
     end
-    
+
   end
 end

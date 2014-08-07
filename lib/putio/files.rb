@@ -1,4 +1,4 @@
-module PutIO
+module Putio
   File = Struct.new(:id, :name, :content_type, :created_at, :icon, :size) do
     def self.from_hash(options = {})
       id           = options.fetch("id")           { nil }
@@ -12,7 +12,7 @@ module PutIO
     end
 
     def download
-      
+
     end
   end
 

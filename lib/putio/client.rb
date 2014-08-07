@@ -1,20 +1,16 @@
 require 'forwardable'
 
-require_relative 'connection'
-require_relative 'files'
-require_relative 'future'
+require 'connection'
+require 'files'
+require 'future'
 
-module PutIO
+module Putio
   class Client
 
     extend Forwardable
 
-    attr_reader :oauth_token, :connection, :files
-
-    def initialize(*args)
-      @oauth_token = extract_token(args)
-      @connection  = connection
-      @files       = Files.new(self)
+    def initialize(token:)
+      self.oauth_token = token
     end
 
     def transfers_add(url, parent_id = 0, extract = false, callback = nil)
@@ -23,6 +19,7 @@ module PutIO
 
 
     private
+    attr_reader :oauth_token
 
     def_delegators :connection, :get, :post, :put, :delete
     def connection
@@ -32,7 +29,7 @@ module PutIO
     def extract_token(args)
       if args[0] && !args[0].is_a?(Array)
         args[0][:oauth_token] || nil
-      else 
+      else
         nil
       end
     end

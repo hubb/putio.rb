@@ -1,22 +1,13 @@
 lib = File.expand_path('lib')
 $:.unshift(lib) unless $:.include?(lib)
 
-require 'putio/client'
-require 'cli'
+class Putio
+  extend Forwardable
+  attr_reader :client
 
-module PutIO
-  
-  def self.new(*args)
-    PutIO::Client.new(args)
+  def_delegators :client, :files, :add_file, :transfers, :add_transfer
+
+  def initialize(auth_token:)
+    @client = Client.new(auth_token)
   end
-
-  def self.method_missing(method, *args, &block)
-    return super unless new.respond_to?(method)
-    new.send(method, *args, &block)
-  end
-
-  def self.respond_to?(method, with_private = false)
-    new.respond_to?(method, with_private) || super(method, with_private)
-  end
-
 end

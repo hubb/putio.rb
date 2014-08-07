@@ -1,67 +1,35 @@
-# Putio.rb
+# putio-rb
 
-Simple ruby wrapper for the Put.io API v2
+A wrapper around [put.io](https://put.io) api v2 which allows you to access all
+your files and transfers.
 
-## Installation
+## Install
 
-    gem install putio.rb
+    gem install putio-rb
 
-## Documentation
-
-### Examples
-
-    > require 'putio.rb'
-    => true
-    > client = PutIO::Client.new(oauth_token: "YOUR_TOKEN")
-    => #<PutIO::Client:0x007fab23b8e568
-    @connection=#<PutIO::Connection:0x007fab23b8e518>,
-    @files=
-      #<PutIO::Files:0x007fab23b8e338
-      @client=#<PutIO::Client:0x007fab23b8e568 ...>,
-      @list=[
-        #<struct PutIO::File
-          id=00000001,
-          name="Holiday pictures",
-          content_type="application/x-directory",
-          created_at="2013-07-13T10:05:46",
-          icon="https://put.io/images/file_types/folder.png",
-          size=2753110824>,
-        #<struct PutIO::File
-          id=00000002,
-          name="Holiday movie.mp4",
-          content_type="video/mp4",
-          created_at="2013-07-10T19:21:56",
-          icon="https://put.io/thumbnails/random_hash.jpg",
-          size=333116354>
-      ]>,
-      @oauth_token="MY_TOKEN">
-    > client.files.list
-    => [
-        #<struct PutIO::File
-          id=00000001,
-          name="Holiday pictures",
-          content_type="application/x-directory",
-          created_at="2013-07-13T10:05:46",
-          icon="https://put.io/images/file_types/folder.png",
-          size=2753110824>,
-        #<struct PutIO::File
-          id=00000002,
-          name="Holiday movie.mp4",
-          content_type="video/mp4",
-          created_at="2013-07-10T19:21:56",
-          icon="https://put.io/thumbnails/random_hash.jpg",
-          size=333116354>
-      ]
-
-## TODOS
+## Usage
 
 ```
-  client.files.search
-  client.files.upload
-  client.files.download(id)
-  client.files.delete(id)
-  client.files.rename(id)
-  client.files.move(id)
+require 'putio-rb'
 
-  client.files.folder
+client = Putio.new(auth_token: 'TOKEN')
+=> #<Putio:0x007fab23b8e568 @client=#<Putio::CLient:0x007fab23b8e518>>
+
+# Transfers
+# list all transfers
+client.transfers
+
+# add a new transfer
+client.add_transfer(url: 'url (torrent, magnet)')
+
+## Files
+# list all files
+client.files
+
+# upload a file
+client.add_file(file: 'file (File)''
 ```
+
+## License
+
+MIT

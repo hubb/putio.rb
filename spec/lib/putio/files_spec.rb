@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe PutIO::File do
+describe Putio::File do
   it 'can be created with a hash' do
     options = {:id => 1, :name => "Batman", :content_type => "file"}
 
@@ -8,6 +8,6 @@ describe PutIO::File do
   end
 end
 
-describe PutIO::Files do
+describe Putio::Files do
 
 end
