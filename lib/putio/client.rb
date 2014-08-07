@@ -1,37 +1,36 @@
+require 'putio/connection'
 require 'forwardable'
-
-require 'connection'
-require 'files'
-require 'future'
 
 module Putio
   class Client
-
     extend Forwardable
+    attr_reader :options
 
-    def initialize(token:)
-      self.oauth_token = token
+    def initialize(options={})
+      @options = options
     end
 
-    def transfers_add(url, parent_id = 0, extract = false, callback = nil)
-      connection.post("/transfers/add", :body => url)
-    end
+    def files
+      resp = connection.get('/files/list')
 
+      if resp.body.fetch('status') == 'OK'
+        files = [].tap do |all|
+          resp.body.fetch('files').each do |data|
+            all << OpenStruct.new(data)
+          end
+        end
+      end
+
+      files
+    end
 
     private
-    attr_reader :oauth_token
-
-    def_delegators :connection, :get, :post, :put, :delete
-    def connection
-      @connection ||= Connection.new(oauth_token)
+    def oauth_token
+      options.fetch(:oauth_token)
     end
 
-    def extract_token(args)
-      if args[0] && !args[0].is_a?(Array)
-        args[0][:oauth_token] || nil
-      else
-        nil
-      end
+    def connection
+      @connection ||= Connection.new(token: oauth_token)
     end
 
   end

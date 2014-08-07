@@ -1,13 +1,20 @@
 lib = File.expand_path('lib')
-$:.unshift(lib) unless $:.include?(lib)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
-class Putio
-  extend Forwardable
-  attr_reader :client
+require 'putio/configuration'
+require 'putio/client'
 
-  def_delegators :client, :files, :add_file, :transfers, :add_transfer
+module Putio
+  def self.configure
+    yield configuration
+    true
+  end
 
-  def initialize(auth_token:)
-    @client = Client.new(auth_token)
+  def self.client
+    @client ||= Client.new(configuration.to_h)
+  end
+
+  def self.configuration
+    @configuration ||= Configuration.new
   end
 end

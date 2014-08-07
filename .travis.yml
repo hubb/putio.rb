@@ -1,0 +1,9 @@
+language: ruby
+
+rvm:
+  - 2.1.2
+
+before_install:
+  - 'echo ''gem: --no-ri --no-rdoc'' > ~/.gemrc'
+
+script: bundle exec rake

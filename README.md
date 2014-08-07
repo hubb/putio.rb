@@ -12,23 +12,21 @@ your files and transfers.
 ```
 require 'putio-rb'
 
-client = Putio.new(auth_token: 'TOKEN')
-=> #<Putio:0x007fab23b8e568 @client=#<Putio::CLient:0x007fab23b8e518>>
-
-# Transfers
-# list all transfers
-client.transfers
-
-# add a new transfer
-client.add_transfer(url: 'url (torrent, magnet)')
+Putio.configure do |config|
+  config.oauth_token = 'TOKEN' # mandatory
+end
+=> true
 
 ## Files
 # list all files
 client.files
 
-# upload a file
-client.add_file(file: 'file (File)''
 ```
+
+## Todo
+
+- [ ] list transfers
+- [ ] add a transfer
 
 ## License
 

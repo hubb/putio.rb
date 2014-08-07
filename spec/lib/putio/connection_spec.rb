@@ -1,51 +1,34 @@
 require 'spec_helper'
+require 'putio/connection'
 
 describe Putio::Connection do
+  subject(:connection) { described_class.new(token: 'test') }
 
-  context 'without OAuth token' do
-    it 'raises an error' do
-      lambda { subject }.should raise_error(described_class::MissingOauthToken)
-    end
+  it 'needs a token' do
+    expect { described_class.new }.to raise_error
   end
 
-  context 'with OAuth token' do
+  it 'responds to get' do
+    expect(connection).to respond_to(:get)
+  end
 
-    subject { described_class.new("VALID_TOKEN") }
+  describe 'get' do
+    let(:response) { connection.get('/foo/bar') }
 
-    it 'does not raise any error' do
-      lambda { subject }.should_not raise_error
+    before do
+      stub_request(:get, "https://api.put.io/v2/foo/bar?oauth_token=test").
+         with(:headers => {'Accept'=>'application/json', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'putio-rb ruby client'}).
+         to_return(:status => 200, :body => "[]", :headers => {})
     end
 
-    context 'httparty-able' do
-
-      it 'includes HTTParty' do
-        subject.is_a?(HTTParty).should be_true
-      end
-
-      it 'has base_uri' do
-        subject.class.base_uri.should eql(Putio::Configuration::DEFAULT_API_ENDPOINT)
-      end
-
-      it 'has right headers' do
-        subject.class.headers.should eql('Accept' => 'application/json')
-      end
-
-      it 'has right format' do
-        subject.class.format.should eql(:json)
-      end
-
-      it 'has a token' do
-        subject.class.default_params.should eql({:oauth_token => "VALID_TOKEN"})
-      end
-
-      %I(get post put delete).each do |meth|
-        it "delegates #{meth} to the class" do
-          Putio::Connection.should_receive(meth)
-          subject.send(meth)
-        end
-      end
-
+    it 'parses the response body' do
+      expect(JSON).to receive(:parse).and_call_original
+      response
     end
 
+    it 'returns an object with a code and a body' do
+      expect(response.code).to eq(200)
+      expect(response.body).to eq([])
+    end
   end
 end
