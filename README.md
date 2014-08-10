@@ -18,18 +18,23 @@ end
 
 # list all files
 client.list_files
-# also aliased as list_files
+# also aliased as files
 client.files
 
 # list all transfers
+client.list_transfers
+# also aliased as transfers
 client.transfers
+
 
 ```
 
 ## Todo
 
-- [x] list transfers
+- [ ] find a file
+- [ ] find a transfer
 - [ ] add a transfer
+- [ ] add a file
 
 ## License
 

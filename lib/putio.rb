@@ -9,7 +9,7 @@ module Putio
     include Putio::Configurable
     extend Forwardable
 
-    def_delegators :client, :list_files, :files
+    def_delegators :client, :list_files, :files, :list_transfers, :transfers
 
     def client
       @client ||= Client.new(options)
