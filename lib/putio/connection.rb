@@ -1,49 +1,59 @@
 require 'json'
 require 'uri'
-require 'net/https'
+require 'net/http'
 
 module Putio
-  class Connection
-    DEFAULT_ENDPOINT    = 'https://api.put.io'
-    DEFAULT_API_VERSION = 'v2'
-    attr_reader :endpoint
 
-    def initialize(token:, endpoint:DEFAULT_ENDPOINT)
-      @token    = token
+  class Connection
+    VERB_MAP = {
+      get:    Net::HTTP::Get,
+      post:   Net::HTTP::Post,
+      put:    Net::HTTP::Put,
+      delete: Net::HTTP::Delete
+    }
+
+    def initialize(endpoint:, headers:{})
       @endpoint = URI.parse(endpoint)
+      @headers  = headers
     end
 
-    def get(path, params={})
-      request_json(:get, path, params)
+    def request_json(method, path, params)
+      response = request(method, path, params)
+
+      case response.code.to_i
+      when 200 || 201
+        body = JSON.parse(response.body)
+        response_factory.call(code: response.code.to_i, body: body)
+      when (400..499)
+        fail 'bad request'
+      when (500..599)
+        fail 'server problems'
+      end
+    end
+
+    def request(method, path, params)
+      case method
+      when :get
+        full_path = encode_path_params(path, params)
+        request = VERB_MAP[method].new(full_path)
+      else
+        request = VERB_MAP[method].new(path)
+        request.set_form_data(params)
+      end
+
+      http.request(request)
     end
 
     private
-    attr_reader :token, :http
+    attr_reader :endpoint
 
     def http
       @http ||= begin
         http             = Net::HTTP.new(endpoint.host, endpoint.port)
-        http.use_ssl     = true
+        http.use_ssl     = endpoint.scheme == 'https'
         http.verify_mode = OpenSSL::SSL::VERIFY_PEER
         http
       end
-    end
-
-    def request_json(method, path, params)
-      resp = request(method, path, params)
-      body = JSON.parse(resp.body)
-
-      response_factory.call(code: resp.code.to_i, body: body)
-    end
-
-    def request(method, path, params)
-      prefixed  = "/#{DEFAULT_API_VERSION}#{path}"
-      params.merge!(oauth_token: token)
-      full_path = encode_path_params(prefixed, params)
-
-      # Our API is Readonly at the moment, so only GET
-      request = Net::HTTP::Get.new(full_path, default_headers)
-      http.request(request)
     end
 
     def encode_path_params(path, params)
@@ -53,11 +63,6 @@ module Putio
 
     def response_factory
       @response_factory ||= ->(*args) { OpenStruct.new(*args) }
-    end
-
-    def default_headers
-      { 'User-Agent' => 'putio-rb ruby client',
-        'Accept' => 'application/json' }
     end
   end
 end
