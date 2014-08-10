@@ -9,24 +9,37 @@ your files and transfers.
 
 ## Usage
 
+First, you'll need to generate an access token, please see [the documentation](http://put.io/v2/docs/gettingstarted.html#authentication-and-access).
+
+### Configuration
+
 ```
 require 'putio-rb'
 
 Putio.configure do |config|
-  config.access_token = 'TOKEN' # mandatory
+  config.access_token = 'SECRET TOKEN' # mandatory
+  config.api_endpoint = 'https://foo.bar'
+  config.api_version  = 'v1'
+  config.user_agent   = 'kthxbye'
 end
+```
 
+### Files
+
+```
 # list all files
 client.list_files
 # also aliased as files
 client.files
+```
 
+### Transfers
+
+```
 # list all transfers
 client.list_transfers
 # also aliased as transfers
 client.transfers
-
-
 ```
 
 ## Todo
