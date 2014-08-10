@@ -44,10 +44,42 @@ client.transfers
 
 ## Todo
 
-- [ ] find a file
-- [ ] find a transfer
-- [ ] add a transfer
-- [ ] add a file
+### Files
+
+- [x] list files
+- [ ] search files
+- [ ] upload file
+- [ ] get file
+- [ ] delete file
+- [ ] rename file
+- [ ] move file
+- [ ] convert file to mp4
+- [ ] get mp4 status
+- [ ] download
+- [ ] zip & download
+- [ ] subtitles
+- [ ] download subtitles
+
+### Transfers
+
+- [ ] list transfers
+- [ ] add transfer
+- [ ] get transfer
+- [ ] retry transfer
+- [ ] cancel transfer
+- [ ] clean transfers
+
+### Friends
+
+- [ ] list friends
+- [ ] friend requests
+- [ ] send request
+- [ ] deny request
+
+### Account
+
+- [ ] info
+- [ ] settings
 
 ## License
 
