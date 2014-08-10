@@ -31,6 +31,8 @@ end
 client.list_files
 # also aliased as files
 client.files
+# search a file
+client.search query: 'foo'
 ```
 
 ### Transfers
@@ -47,7 +49,7 @@ client.transfers
 ### Files
 
 - [x] list files
-- [ ] search files
+- [x] search files
 - [ ] upload file
 - [ ] get file
 - [ ] delete file
@@ -62,7 +64,7 @@ client.transfers
 
 ### Transfers
 
-- [ ] list transfers
+- [x] list transfers
 - [ ] add transfer
 - [ ] get transfer
 - [ ] retry transfer

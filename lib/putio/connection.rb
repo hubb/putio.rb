@@ -52,6 +52,7 @@ module Putio
         http             = Net::HTTP.new(endpoint.host, endpoint.port)
         http.use_ssl     = endpoint.scheme == 'https'
         http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+        http.set_debug_output $stdout
         http
       end
     end

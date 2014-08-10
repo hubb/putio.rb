@@ -8,7 +8,7 @@ module Putio
       attr_reader *VALID_KEYS
 
       def initialize(params = {})
-        params.select! { |p|   VALID_KEYS.include?(p) }
+        params.reject! { |k,_| VALID_KEYS.include?(k) }
         params.map     { |k,v| instance_variable_set("@#{k}", v) }
       end
 
