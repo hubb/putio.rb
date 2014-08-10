@@ -51,8 +51,9 @@ client.transfers
 - [x] list files
 - [x] search files
 - [ ] upload file
-- [ ] get file
-- [ ] delete file
+- [ ] create folder
+- [x] get file
+- [x] delete file
 - [ ] rename file
 - [ ] move file
 - [ ] convert file to mp4

@@ -5,12 +5,18 @@ module Putio
   class Client
 
     module Files
-      # Get all the files
+      # Lists files in a folder
+      #
+      # @param options [Hash]
+      # @option options [Integer] parent_id: ID of the folder you’d like to list. This defaults to the root directory (which has ID number 0).
       # @alias files
       #
       # @return [Array<Putio::Resource::File>]
-      def list_files
-        resp = get '/files/list'
+      def list_files(options:{})
+        defaults = { parent_id: 0 }
+        options  = defaults.merge!(options)
+
+        resp = get '/files/list', options
         resp.body["files"].inject([]) do |memo, data|
           memo.push file_factory.call(data)
         end
@@ -21,7 +27,7 @@ module Putio
       #
       # @param query [String] The keyword to search
       # @param options [Hash] Search Syntax params
-      # @option options [Integer] page:  Defaults to -1. If -1 given, returns all results at a time.
+      # @option options [Integer] page:  Defaults to 1. If -1 given, returns all results at a time.
       # @option options [String] from:  me, shares, jack or all
       # @option options [String] type: video, audio, image, iphone or all
       # @option options [String] ext:  mp3, avi, jpg, mp4 or all
@@ -61,6 +67,34 @@ module Putio
 
         resp.body["files"].inject([]) do |memo, data|
           memo.push file_factory.call(data)
+        end
+      end
+
+      # Returns a file’s properties.
+      #
+      # @param id [Integer]
+      # @param options
+      # @option options [Integer] parent_id: ID of the folder you’d like to list. This defaults to the root directory (which has ID number 0).
+      # @return [Putio::Resource::File]
+      def file(id:, options:{})
+        defaults = { parent_id: 0 }
+        options  = defaults.merge!(options)
+
+        resp = get "/files/#{id}", options
+        file_factory.call(resp.body["file"])
+      end
+
+      # Deletes given files
+      #
+      # @param file_ids [Array<Integer>] File ids separated by commas. Ex: 1,2,3,4
+      # Returns [true]
+      def delete_file(*file_ids)
+        resp = post '/files/delete', { file_ids: file_ids.join(',') }
+
+        if resp.body["status"] == "OK"
+          true
+        else
+          false
         end
       end
 

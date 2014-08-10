@@ -9,7 +9,7 @@ describe 'Putio::Client Files behaviour' do
 
   describe 'files' do
     before do
-      stub_request(:get, "https://api.put.io/v2/files/list?oauth_token=foobar").
+      stub_request(:get, "https://api.put.io/v2/files/list?oauth_token=foobar&parent_id=0").
         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
         to_return(:status => 200, :body => files, :headers => {})
     end
@@ -21,7 +21,7 @@ describe 'Putio::Client Files behaviour' do
 
     context 'when the response is empty' do
       before do
-        stub_request(:get, "https://api.put.io/v2/files/list?oauth_token=foobar").
+        stub_request(:get, "https://api.put.io/v2/files/list?oauth_token=foobar&parent_id=0").
           with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
           to_return(:status => 200, :body => "{\"files\":[]}", :headers => {})
       end
@@ -88,6 +88,57 @@ describe 'Putio::Client Files behaviour' do
 
         assert_requested(mock_request)
       end
+    end
+  end
+
+  describe 'file' do
+    let(:file) { File.read('spec/support/file.json') }
+
+    it 'should query the right endpoint' do
+      mock_request = stub_request(:get, "https://api.put.io/v2/files/123?oauth_token=foobar&parent_id=0").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
+         to_return(:status => 200, :body => "{\"file\":[]}", :headers => {})
+
+      client.file(id: 123)
+
+      assert_requested(mock_request)
+    end
+
+    it 'should return a Putio::Resource::File' do
+      stub_request(:get, "https://api.put.io/v2/files/123?oauth_token=foobar&parent_id=0").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
+         to_return(:status => 200, :body => file, :headers => {})
+
+      expect(client.file(id: 123)).to be_kind_of(Putio::Resource::File)
+    end
+
+    context 'with a parent_id option' do
+      it 'should query with the right option' do
+        mock_request = stub_request(:get, "https://api.put.io/v2/files/123?oauth_token=foobar&parent_id=1234").
+         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
+         to_return(:status => 200, :body => "{\"file\":[]}", :headers => {})
+
+        client.file(id: 123, options: { parent_id: 1234 })
+
+        assert_requested(mock_request)
+      end
+    end
+  end
+
+  describe 'delete_file' do
+    before do
+      @mock_request = stub_request(:post, "https://api.put.io/v2/files/delete").
+        with(:body => {"file_ids"=>"1,2,3", "oauth_token"=>"foobar"},
+             :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Content-Type'=>'application/x-www-form-urlencoded', 'User-Agent'=>'Ruby'}).
+        to_return(:status => 200, :body => "{\"status\": \"OK\"}", :headers => {})
+    end
+
+    it { expect(client.delete_file(1,2,3)).to be_truthy }
+
+    it 'should query the right endpoint with options' do
+      client.delete_file(1,2,3)
+
+      assert_requested(@mock_request)
     end
   end
 end
