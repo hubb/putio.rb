@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'putio/version'
 
 Gem::Specification.new do |s|
-  s.name          = 'putio'
+  s.name          = 'putio-rb'
   s.version       = Putio::VERSION
   s.date          = '2014-08-07'
   s.summary       = 'A gem to access put.io api'
@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.email         = 'thibault.gautriaud@gmail.com'
   s.homepage      = 'https://github.com/hubb/putio.rb'
 
-  s.required_ruby_version = '>= 1.9.3'
+  s.required_ruby_version = '>= 2.0'
   s.require_paths = ['lib']
   s.files         = `git ls-files`.split($/)
   s.test_files    = `git ls-files -- spec/*`.split($/)

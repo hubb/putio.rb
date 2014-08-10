@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    putio (0.0.2)
+    putio-rb (0.0.2)
 
 GEM
   remote: https://rubygems.org/
@@ -70,7 +70,7 @@ DEPENDENCIES
   guard-rspec
   pry
   pry-nav
-  putio!
+  putio-rb!
   rake
   rspec
   terminal-notifier-guard

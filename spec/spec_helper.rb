@@ -1,6 +1,6 @@
 ENV["RAILS_ENV"] = 'test'
 
-require 'putio'
+require 'putio-rb'
 require 'rspec'
 require 'webmock/rspec'
 
