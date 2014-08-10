@@ -13,19 +13,22 @@ your files and transfers.
 require 'putio-rb'
 
 Putio.configure do |config|
-  config.oauth_token = 'TOKEN' # mandatory
+  config.access_token = 'TOKEN' # mandatory
 end
-=> true
 
-## Files
 # list all files
+client.list_files
+# also aliased as list_files
 client.files
+
+# list all transfers
+client.transfers
 
 ```
 
 ## Todo
 
-- [ ] list transfers
+- [x] list transfers
 - [ ] add a transfer
 
 ## License
