@@ -38,4 +38,4 @@ client.transfers
 
 ## License
 
-MIT
+See [LICENSE](https://github.com/hubb/putio.rb/blob/master/LICENSE.md)
