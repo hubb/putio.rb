@@ -31,8 +31,16 @@ end
 client.list_files
 # also aliased as files
 client.files
+# list files in directory 123
+client.files(options: { parent_id: 123 })
 # search a file
 client.search query: 'foo'
+# complex search
+client.search(query: 'jazz', options: { from: 'me,jack', ext: 'mp4', time: 'today' })
+# find a file
+client.file id: 123
+# delete files 123 and 345
+client.delete_files(123, 345)
 ```
 
 ### Transfers

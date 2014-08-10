@@ -88,7 +88,7 @@ module Putio
       #
       # @param file_ids [Array<Integer>] File ids separated by commas. Ex: 1,2,3,4
       # Returns [true]
-      def delete_file(*file_ids)
+      def delete_files(*file_ids)
         resp = post '/files/delete', { file_ids: file_ids.join(',') }
 
         if resp.body["status"] == "OK"

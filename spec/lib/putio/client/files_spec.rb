@@ -125,7 +125,7 @@ describe 'Putio::Client Files behaviour' do
     end
   end
 
-  describe 'delete_file' do
+  describe 'delete_files' do
     before do
       @mock_request = stub_request(:post, "https://api.put.io/v2/files/delete").
         with(:body => {"file_ids"=>"1,2,3", "oauth_token"=>"foobar"},
@@ -133,10 +133,10 @@ describe 'Putio::Client Files behaviour' do
         to_return(:status => 200, :body => "{\"status\": \"OK\"}", :headers => {})
     end
 
-    it { expect(client.delete_file(1,2,3)).to be_truthy }
+    it { expect(client.delete_files(1,2,3)).to be_truthy }
 
     it 'should query the right endpoint with options' do
-      client.delete_file(1,2,3)
+      client.delete_files(1,2,3)
 
       assert_requested(@mock_request)
     end
