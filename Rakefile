@@ -3,3 +3,18 @@ RSpec::Core::RakeTask.new(:spec)
 
 task :test => :spec
 task :default => :spec
+
+namespace :doc do
+  begin
+    require 'yard'
+    YARD::Rake::YardocTask.new do |task|
+      task.files   = ['README.md', 'LICENSE.md', 'lib/**/*.rb']
+      task.options = [
+        '--output-dir', 'doc/yard',
+        '--markup', 'markdown',
+      ]
+    end
+  rescue LoadError
+    puts "Please install yard for documentation support: gem install yard"
+  end
+end

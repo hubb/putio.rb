@@ -1,5 +1,5 @@
 .DS_Store
-.env
-Gemfile.lock
 *.gem
 .ruby-version
+doc/
+.yardoc/
