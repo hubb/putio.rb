@@ -1,20 +1,20 @@
-lib = File.expand_path('lib')
+lib = File.expand_path('lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
-require 'putio/configuration'
 require 'putio/client'
+require 'forwardable'
 
 module Putio
-  def self.configure
-    yield configuration
-    true
-  end
+  class << self
+    include Putio::Configurable
+    extend Forwardable
 
-  def self.client
-    @client ||= Client.new(configuration.to_h)
-  end
+    def_delegators :client, :list_files
 
-  def self.configuration
-    @configuration ||= Configuration.new
+    def client
+      @client ||= Client.new(options)
+    end
   end
 end
+
+Putio.setup

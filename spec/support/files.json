@@ -1,0 +1,64 @@
+{
+  "files": [
+    {
+      "content_type": "video/mp4",
+      "crc32": "c989885b",
+      "created_at": "2014-07-20T18:59:51",
+      "first_accessed_at": null,
+      "icon": "https://put.io/thumbnails/YlppkJJpkl9iV1mWW2pfZWVei2BeXmRaaJOTlmVeYVZdaVWZk2dljg%3D%3D.jpg",
+      "id": 209309563,
+      "is_mp4_available": false,
+      "is_shared": false,
+      "name": "BBC.The.Century.of.the.Self.4of4.Eight.People.Sipping.Wine.in.Kettering.DVDRip.x264.AAC.MVGroup.org.mp4",
+      "opensubtitles_hash": "40e42531b365b3c4",
+      "parent_id": 0,
+      "screenshot": "https://put.io/screenshots/YlppkJJpkl9iV1mWW2pfZWVei2BeXmRaaJOTlmVeYVZdaVWZk2dljg%3D%3D.jpg",
+      "size": 788132892
+    },
+    {
+      "content_type": "application/x-directory",
+      "crc32": null,
+      "created_at": "2014-07-14T21:51:08",
+      "first_accessed_at": null,
+      "icon": "https://put.io/images/file_types/folder.png",
+      "id": 206159273,
+      "is_mp4_available": false,
+      "is_shared": false,
+      "name": "The.Zero.Theorem.2013.WEB-DL.XviD.MP3-RARBG",
+      "opensubtitles_hash": null,
+      "parent_id": 0,
+      "screenshot": null,
+      "size": 1438860547
+    },
+    {
+      "content_type": "video/x-flv",
+      "crc32": "0194f795",
+      "created_at": "2014-06-30T12:33:56",
+      "first_accessed_at": null,
+      "icon": "https://put.io/thumbnails/YlppjpJgY16VV16UVZleZWmPXGJYWpWKml5maGGKZV1dkYppk2GTkg%3D%3D.jpg",
+      "id": 201733009,
+      "is_mp4_available": false,
+      "is_shared": false,
+      "name": "[SURF] Bending Colours (Jordy Smith).flv",
+      "opensubtitles_hash": "f32d37840c3da23f",
+      "parent_id": 0,
+      "screenshot": "https://put.io/screenshots/YlppjpJgY16VV16UVZleZWmPXGJYWpWKml5maGGKZV1dkYppk2GTkg%3D%3D.jpg",
+      "size": 883940502
+    }
+  ],
+  "parent": {
+    "content_type": "application/x-directory",
+    "crc32": null,
+    "created_at": "2012-11-10T10:41:37",
+    "icon": "https://put.io/images/file_types/folder.png",
+    "id": 0,
+    "is_mp4_available": false,
+    "is_shared": false,
+    "name": "Your Files",
+    "opensubtitles_hash": null,
+    "parent_id": null,
+    "screenshot": null,
+    "size": 52335247904
+  },
+  "status": "OK"
+}
